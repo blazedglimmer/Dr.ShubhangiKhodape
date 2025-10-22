@@ -1,7 +1,14 @@
 import Link from 'next/link';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Phone, Video, MessageSquare, Clock, IndianRupee, ArrowRight } from 'lucide-react';
+import {
+  Phone,
+  Video,
+  MessageSquare,
+  Clock,
+  IndianRupee,
+  ArrowRight,
+} from 'lucide-react';
 import type { Database } from '@/types/database';
 
 type Service = Database['public']['Tables']['services']['Row'];
@@ -14,7 +21,10 @@ const serviceIcons: Record<string, any> = {
 
 export function Services({ services }: { services: Service[] }) {
   return (
-    <section id="services" className="py-24 px-4 bg-gradient-to-b from-background to-emerald-950/5">
+    <section
+      id="services"
+      className="py-24 px-4 bg-gradient-to-b from-background to-emerald-950/5"
+    >
       <div className="container max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -26,15 +36,15 @@ export function Services({ services }: { services: Service[] }) {
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {services.map((service) => {
+          {services.map(service => {
             const Icon = serviceIcons[service.name] || Phone;
 
             return (
               <Card
                 key={service.id}
-                className="p-6 glass-effect border-emerald-500/20 hover:border-emerald-500/40 transition-all group hover:scale-105"
+                className="p-6 glass-effect border-emerald-500/20 hover:border-emerald-500/40 transition-all group hover:scale-105 text-center"
               >
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 flex items-center justify-center mb-4 group-hover:from-emerald-500/30 group-hover:to-teal-500/30 transition-all">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 flex items-center justify-center mb-4 group-hover:from-emerald-500/30 group-hover:to-teal-500/30 transition-all mx-auto">
                   <Icon className="w-7 h-7 text-emerald-400" />
                 </div>
 
@@ -46,7 +56,7 @@ export function Services({ services }: { services: Service[] }) {
                   </p>
                 )}
 
-                <div className="space-y-2 mb-6">
+                <div className="space-y-2 mb-6 flex flex-row justify-between items-center">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Clock className="w-4 h-4" />
                     <span>{service.duration_minutes} mins</span>

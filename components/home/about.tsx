@@ -17,34 +17,34 @@ export function About({ doctor }: { doctor: Doctor }) {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 mb-16">
+        <div className="grid md:grid-cols-3 gap-6 mb-16 text-center">
           <Card className="p-6 glass-effect border-emerald-500/20 hover:border-emerald-500/40 transition-all">
-            <div className="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center mb-4">
+            <div className="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center mb-4 mx-auto">
               <Award className="w-6 h-6 text-emerald-400" />
             </div>
             <h3 className="text-xl font-semibold mb-2">Expert Care</h3>
             <p className="text-muted-foreground">
-              Specialized in aesthetic medicine with a focus on personalized treatment plans
+              Specialized in aesthetic medicine with a focus on personalized
+              treatment plans
             </p>
           </Card>
 
           <Card className="p-6 glass-effect border-teal-500/20 hover:border-teal-500/40 transition-all">
-            <div className="w-12 h-12 rounded-full bg-teal-500/10 flex items-center justify-center mb-4">
+            <div className="w-12 h-12 rounded-full bg-teal-500/10 flex items-center justify-center mb-4 mx-auto">
               <GraduationCap className="w-6 h-6 text-teal-400" />
             </div>
             <h3 className="text-xl font-semibold mb-2">Qualifications</h3>
-            <p className="text-muted-foreground">
-              {doctor.qualifications}
-            </p>
+            <p className="text-muted-foreground">{doctor.qualifications}</p>
           </Card>
 
           <Card className="p-6 glass-effect border-emerald-500/20 hover:border-emerald-500/40 transition-all">
-            <div className="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center mb-4">
+            <div className="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center mb-4 mx-auto">
               <Heart className="w-6 h-6 text-emerald-400" />
             </div>
             <h3 className="text-xl font-semibold mb-2">Patient-Centered</h3>
             <p className="text-muted-foreground">
-              Compassionate care focused on understanding and meeting your unique needs
+              Compassionate care focused on understanding and meeting your
+              unique needs
             </p>
           </Card>
         </div>
