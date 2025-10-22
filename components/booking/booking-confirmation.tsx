@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CheckCircle2, Copy, Phone, IndianRupee } from 'lucide-react';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
 import type { Database } from '@/types/database';
