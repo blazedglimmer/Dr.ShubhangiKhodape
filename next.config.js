@@ -1,10 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
-  eslint: {
-    ignoreDuringBuilds: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '/**',
+      },
+    ],
   },
-  images: { unoptimized: true },
+  // Remove the 'eslint' configuration from here
+  // ESLint should be configured in .eslintrc.json instead
 };
 
 module.exports = nextConfig;

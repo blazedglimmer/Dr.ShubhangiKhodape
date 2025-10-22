@@ -51,10 +51,18 @@ export function BookingConfirmation({
             <span className="text-muted-foreground">Date & time</span>
             <div className="text-right">
               <p className="font-medium">
-                {format(dateTime, 'EEEE, dd MMMM yyyy')} · {format(dateTime, 'h:mm a')} -{' '}
-                {format(new Date(dateTime.getTime() + service.duration_minutes * 60000), 'h:mm a')}
+                {format(dateTime, 'EEEE, dd MMMM yyyy')} ·{' '}
+                {format(dateTime, 'h:mm a')} -{' '}
+                {format(
+                  new Date(
+                    dateTime.getTime() + service.duration_minutes * 60000
+                  ),
+                  'h:mm a'
+                )}
               </p>
-              <p className="text-sm text-muted-foreground">Time zone ({timezone})</p>
+              <p className="text-sm text-muted-foreground">
+                Time zone ({timezone})
+              </p>
             </div>
           </div>
 
@@ -104,7 +112,7 @@ export function BookingConfirmation({
           </p>
         </Card>
 
-        <Link href="/booking">
+        <Link href="/">
           <Button variant="outline" size="lg" className="mt-6">
             Book another appointment
           </Button>

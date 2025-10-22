@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { ServiceSelection } from '@/components/booking/service-selection';
@@ -13,7 +13,7 @@ import type { Database } from '@/types/database';
 type Service = Database['public']['Tables']['services']['Row'];
 type Doctor = Database['public']['Tables']['doctors']['Row'];
 
-export default function BookingPage() {
+function BookingContent() {
   const searchParams = useSearchParams();
   const [step, setStep] = useState(1);
   const [services, setServices] = useState<Service[]>([]);
@@ -44,7 +44,9 @@ export default function BookingPage() {
 
       const serviceId = searchParams.get('service');
       if (serviceId && servicesRes.data && Array.isArray(servicesRes.data)) {
-        const service = (servicesRes.data as Service[]).find((s) => s.id === serviceId);
+        const service = (servicesRes.data as Service[]).find(
+          s => s.id === serviceId
+        );
         if (service) {
           setSelectedService(service);
           setStep(2);
@@ -66,7 +68,11 @@ export default function BookingPage() {
   }
 
   if (!doctor) {
-    return <div className="min-h-screen flex items-center justify-center">Doctor not found</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Doctor not found
+      </div>
+    );
   }
 
   return (
@@ -76,7 +82,7 @@ export default function BookingPage() {
           <ServiceSelection
             services={services}
             doctor={doctor}
-            onSelect={(service) => {
+            onSelect={service => {
               setSelectedService(service);
               setStep(2);
             }}
@@ -103,23 +109,40 @@ export default function BookingPage() {
             dateTime={selectedDateTime}
             timezone={timezone}
             onBack={() => setStep(2)}
-            onSuccess={(reference) => {
+            onSuccess={reference => {
               setBookingReference(reference);
               setStep(4);
             }}
           />
         )}
 
-        {step === 4 && bookingReference && selectedService && selectedDateTime && (
-          <BookingConfirmation
-            bookingReference={bookingReference}
-            service={selectedService}
-            doctor={doctor}
-            dateTime={selectedDateTime}
-            timezone={timezone}
-          />
-        )}
+        {step === 4 &&
+          bookingReference &&
+          selectedService &&
+          selectedDateTime && (
+            <BookingConfirmation
+              bookingReference={bookingReference}
+              service={selectedService}
+              doctor={doctor}
+              dateTime={selectedDateTime}
+              timezone={timezone}
+            />
+          )}
       </div>
     </main>
+  );
+}
+
+export default function BookingPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center">
+          <Loader2 className="w-8 h-8 animate-spin text-emerald-500" />
+        </div>
+      }
+    >
+      <BookingContent />
+    </Suspense>
   );
 }
