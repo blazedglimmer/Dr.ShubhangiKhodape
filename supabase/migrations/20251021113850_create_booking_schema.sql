@@ -162,7 +162,7 @@ VALUES (
   'shubhangikhodape16@gmail.com',
   'Aesthetic Physician',
   'MBBS, MD (Dermatology), Fellowship in Aesthetic Medicine',
-  'Specialized in Skin, Beauty, Hair, and Lifestyle treatments with over 10 years of experience in aesthetic medicine. Passionate about helping patients achieve their beauty and wellness goals through personalized treatment plans.'
+  'Specialized in Skin, Beauty, Hair, and Lifestyle treatments with over 5 years of experience in aesthetic medicine. Passionate about helping patients achieve their beauty and wellness goals through personalized treatment plans.'
 ) ON CONFLICT DO NOTHING;
 
 -- Insert services
