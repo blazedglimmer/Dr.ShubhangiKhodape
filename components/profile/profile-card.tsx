@@ -18,6 +18,7 @@ const ProfileCard = () => {
           <ShareButton
             url={'https://dr-shubhangi-khodape.vercel.app/'}
             children={<Share2 className="w-5 h-5 text-foreground" />}
+            text={'Check out Dr. Shubhangi Khodape - Aesthetic Physician!'}
           />
         </button>
 
