@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 type Doctor = Database['public']['Tables']['doctors']['Row'];
 const profileImage =
-  'https://res.cloudinary.com/dhyds1gcy/image/upload/v1761092022/Screenshot_2025-10-22_at_5.41.13_AM_x5dpzl.png';
+  'https://res.cloudinary.com/dhyds1gcy/image/upload/v1761109446/Screenshot_2025-10-22_at_10.33.47_AM_zykuoi.png';
 
 export function Hero({ doctor }: { doctor: Doctor }) {
   return (

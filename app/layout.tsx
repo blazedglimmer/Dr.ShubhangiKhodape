@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     siteName: 'Dr. Shubhangi Khodape',
     images: [
       {
-        url: 'https://res.cloudinary.com/dhyds1gcy/image/upload/v1761092022/Screenshot_2025-10-22_at_5.41.13_AM_x5dpzl.png',
+        url: 'https://res.cloudinary.com/dhyds1gcy/image/upload/v1761109446/Screenshot_2025-10-22_at_10.33.47_AM_zykuoi.png',
         width: 1200,
         height: 630,
         alt: 'Dr. Shubhangi Khodape',
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     description:
       'Book consultations with Dr. Shubhangi Khodape, specialist in Skin, Beauty, Hair, and Lifestyle treatments.',
     images: [
-      'https://res.cloudinary.com/dhyds1gcy/image/upload/v1761092022/Screenshot_2025-10-22_at_5.41.13_AM_x5dpzl.png',
+      'https://res.cloudinary.com/dhyds1gcy/image/upload/v1761109446/Screenshot_2025-10-22_at_10.33.47_AM_zykuoi.png',
     ],
     creator: '@' + 'shubhangikhodape16',
   },
