@@ -10,7 +10,7 @@ const ProfileCard = () => {
   return (
     <div className="w-full max-w-md mx-auto ">
       {/* Main Profile Card */}
-      <div className="bg-card rounded-3xl p-8 shadow-[var(--shadow-card)] border border-border/50 relative bg-indigo-100">
+      <div className="bg-card rounded-3xl p-8 shadow-[var(--shadow-card)] border border-border/50 relative bg-gradient-to-br from-violet-200 via-indigo-200 to-red-200">
         {/* Share Button */}
         <button className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-secondary/50 hover:bg-secondary transition-colors">
           {/* <Share2 className="w-5 h-5 text-foreground" /> */}
@@ -71,18 +71,18 @@ const ProfileCard = () => {
         <div className="mt-4 space-y-1 ">
           <Link
             href="/booking"
-            className="block bg-card rounded-2xl p-2 shadow-[var(--shadow-button)] border border-border/50 hover:shadow-[var(--shadow-card)] hover:scale-[1.02] transition-all duration-300 bg-violet-200"
+            className="block bg-card rounded-2xl p-2 shadow-[var(--shadow-button)] border border-border/50 hover:shadow-[var(--shadow-card)] hover:scale-[1.02] transition-all duration-300 bg-gradient-to-r from-purple-200 via-indigo-200 to-pink-200"
           >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
+            <div className="flex items-center justify-center">
+              <div className="flex items-center gap-4">
                 <Image
                   src={profileImage}
                   alt="Profile"
-                  className="w-12 h-12 rounded-full object-cover"
+                  className="w-12 h-12 rounded-full object-cover border-2 border-card"
                   width={48}
                   height={48}
                 />
-                <span className="text-foreground font-medium">
+                <span className="text-foreground font-medium text-neutral-700">
                   SCHEDULE YOUR APPOINTMENT
                 </span>
               </div>
