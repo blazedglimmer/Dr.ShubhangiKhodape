@@ -1,7 +1,15 @@
 import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Phone, Video, MessageSquare, Clock, IndianRupee, ArrowRight, User } from 'lucide-react';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+
+import {
+  Phone,
+  Video,
+  MessageSquare,
+  Clock,
+  IndianRupee,
+  ArrowRight,
+  User,
+} from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import type { Database } from '@/types/database';
 
 type Service = Database['public']['Tables']['services']['Row'];
@@ -19,7 +27,11 @@ interface ServiceSelectionProps {
   onSelect: (service: Service) => void;
 }
 
-export function ServiceSelection({ services, doctor, onSelect }: ServiceSelectionProps) {
+export function ServiceSelection({
+  services,
+  doctor,
+  onSelect,
+}: ServiceSelectionProps) {
   return (
     <div className="space-y-8">
       <div className="text-center mb-8">
@@ -29,8 +41,15 @@ export function ServiceSelection({ services, doctor, onSelect }: ServiceSelectio
       <Card className="p-6 glass-effect max-w-3xl mx-auto">
         <div className="flex items-center gap-4 mb-6">
           <Avatar className="w-16 h-16">
+            <AvatarImage
+              src="https://res.cloudinary.com/dhyds1gcy/image/upload/v1761109446/Screenshot_2025-10-22_at_10.33.47_AM_zykuoi.png"
+              alt="@shadcn"
+            />
             <AvatarFallback className="bg-gradient-to-br from-emerald-500 to-teal-500 text-white text-xl">
-              {doctor.name.split(' ').map(n => n[0]).join('')}
+              {doctor.name
+                .split(' ')
+                .map(n => n[0])
+                .join('')}
             </AvatarFallback>
           </Avatar>
           <div>
@@ -42,8 +61,9 @@ export function ServiceSelection({ services, doctor, onSelect }: ServiceSelectio
         <Card className="p-4 bg-secondary/50 border-emerald-500/20 mb-6">
           <h3 className="font-semibold mb-2">Our Booking Policy</h3>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            Welcome! Let's get your skin, hair & gut health in check. After you book a consultation, you will receive
-            a follow up message from our team for further process & payment on your mentioned contact info.
+            Welcome! Let's get your skin, hair & gut health in check. After you
+            book a consultation, you will receive a follow up message from our
+            team for further process & payment on your mentioned contact info.
           </p>
         </Card>
       </Card>
@@ -51,7 +71,7 @@ export function ServiceSelection({ services, doctor, onSelect }: ServiceSelectio
       <div className="max-w-3xl mx-auto">
         <h3 className="text-xl font-semibold mb-4">Services</h3>
         <div className="space-y-4">
-          {services.map((service) => {
+          {services.map(service => {
             const Icon = serviceIcons[service.name] || Phone;
 
             return (
@@ -66,7 +86,9 @@ export function ServiceSelection({ services, doctor, onSelect }: ServiceSelectio
                       <Icon className="w-6 h-6 text-emerald-400" />
                     </div>
                     <div>
-                      <h4 className="text-lg font-semibold mb-1">{service.name}</h4>
+                      <h4 className="text-lg font-semibold mb-1">
+                        {service.name}
+                      </h4>
                       <div className="flex items-center gap-3 text-sm text-muted-foreground">
                         <span className="flex items-center gap-1">
                           <Clock className="w-4 h-4" />
@@ -74,7 +96,7 @@ export function ServiceSelection({ services, doctor, onSelect }: ServiceSelectio
                         </span>
                         <span className="flex items-center gap-1">
                           <User className="w-4 h-4" />
-                          with {doctor.name.split(' ')[0]}
+                          with {doctor.name}
                         </span>
                       </div>
                     </div>
