@@ -10,9 +10,9 @@ const ProfileCard = () => {
   return (
     <div className="w-full max-w-md mx-auto">
       {/* Main Profile Card */}
-      <div className="bg-card rounded-3xl p-8 shadow-[var(--shadow-card)] border border-border/50 relative bg-gradient-to-br from-violet-200 via-indigo-200 to-red-200">
+      <div className="bg-card rounded-3xl p-6 sm:p-8 shadow-[var(--shadow-card)] border border-border/50 relative bg-gradient-to-br from-violet-200 via-indigo-200 to-red-200">
         {/* Action Buttons - Top Right */}
-        <div className="absolute top-6 right-6 flex flex-col gap-2">
+        <div className="absolute top-4 right-4 sm:top-6 sm:right-6 flex flex-col gap-2">
           {/* Share Button */}
           <button className="w-10 h-10 flex items-center justify-center rounded-full bg-secondary/50 hover:bg-secondary transition-colors">
             <ShareButton
@@ -62,17 +62,17 @@ const ProfileCard = () => {
         {/* Appointment Button */}
         <Link
           href="/booking"
-          className="block bg-card rounded-2xl p-2 shadow-[var(--shadow-button)] border border-border/50 hover:shadow-[var(--shadow-card)] hover:scale-[1.02] transition-all duration-300 bg-gradient-to-r from-purple-200 via-indigo-200 to-pink-200"
+          className="block bg-card rounded-2xl p-3 sm:p-2 shadow-[var(--shadow-button)] border border-border/50 hover:shadow-[var(--shadow-card)] hover:scale-[1.02] transition-all duration-300 bg-gradient-to-r from-purple-200 via-indigo-200 to-pink-200"
         >
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex items-center justify-center gap-3 sm:gap-4">
             <Image
               src={profileImage}
               alt="Schedule appointment"
-              className="w-12 h-12 rounded-full object-cover border-2 border-card"
+              className="w-12 h-12 rounded-full object-cover border-2 border-card flex-shrink-0"
               width={48}
               height={48}
             />
-            <span className="text-foreground font-medium text-neutral-700">
+            <span className="text-foreground font-medium text-neutral-700 text-sm sm:text-base text-center leading-tight">
               SCHEDULE YOUR APPOINTMENT
             </span>
           </div>
