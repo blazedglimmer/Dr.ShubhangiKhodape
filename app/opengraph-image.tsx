@@ -24,6 +24,7 @@ export default async function Image() {
           justifyContent: 'center',
           backgroundColor: '#f8f9fa',
           padding: '80px',
+          background: '#BFDBFE',
         }}
       >
         {/* Main Profile Card */}
@@ -37,7 +38,7 @@ export default async function Image() {
             background:
               'linear-gradient(135deg, #ddd6fe 0%, #c7d2fe 50%, #fecaca 100%)',
             borderRadius: '48px',
-            padding: '80px',
+            padding: '15px',
             position: 'relative',
             boxShadow: '0 20px 60px rgba(0, 0, 0, 0.1)',
           }}
