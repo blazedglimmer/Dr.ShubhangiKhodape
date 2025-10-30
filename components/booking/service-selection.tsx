@@ -21,6 +21,15 @@ const serviceIcons: Record<string, any> = {
   'Chat Consultation': MessageSquare,
 };
 
+const whatsappLinks: Record<string, string> = {
+  'Chat Consultation':
+    'https://wa.me/918600198045?text=Hi%20Dr.%20Shubhangi,%20I%27d%20like%20a%20Chat%20Consultation',
+  'Phone Call Consultation':
+    'https://wa.me/918600198045?text=Hi%20Dr.%20Shubhangi,%20I%27d%20like%20a%20Phone%20Call%20Consultation',
+  'Video Call Consultation':
+    'https://wa.me/918600198045?text=Hi%20Dr.%20Shubhangi,%20I%27d%20like%20a%20Video%20Call%20Consultation',
+};
+
 interface ServiceSelectionProps {
   services: Service[];
   doctor: Doctor;
@@ -78,7 +87,14 @@ export function ServiceSelection({
               <Card
                 key={service.id}
                 className="p-6 glass-effect border-emerald-500/20 hover:border-emerald-500/40 transition-all cursor-pointer group"
-                onClick={() => onSelect(service)}
+                onClick={() => {
+                  const whatsappLink = whatsappLinks[service.name];
+                  if (whatsappLink) {
+                    window.open(whatsappLink, '_blank');
+                  } else {
+                    onSelect(service);
+                  }
+                }}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
