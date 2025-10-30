@@ -55,14 +55,16 @@ export function ServiceSelection({
   onSelect,
 }: ServiceSelectionProps) {
   return (
-    <div className="space-y-8">
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold mb-2">Select a service</h1>
+    <div className="space-y-6 sm:space-y-8 px-4">
+      <div className="text-center mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">
+          Select a service
+        </h1>
       </div>
 
-      <Card className="p-6 glass-effect max-w-3xl mx-auto">
-        <div className="flex items-center gap-4 mb-6">
-          <Avatar className="w-16 h-16">
+      <Card className="p-4 sm:p-6 glass-effect max-w-3xl mx-auto">
+        <div className="flex items-center gap-3 sm:gap-4 mb-6">
+          <Avatar className="w-12 h-12 sm:w-16 sm:h-16 flex-shrink-0">
             <AvatarImage
               src="https://res.cloudinary.com/dhyds1gcy/image/upload/v1761109446/Screenshot_2025-10-22_at_10.33.47_AM_zykuoi.png"
               alt="@shadcn"
@@ -74,9 +76,13 @@ export function ServiceSelection({
                 .join('')}
             </AvatarFallback>
           </Avatar>
-          <div>
-            <h2 className="text-2xl font-semibold">{doctor.name}</h2>
-            <p className="text-muted-foreground">5.0 ⭐ Aesthetic Physician</p>
+          <div className="min-w-0">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-semibold truncate">
+              {doctor.name}
+            </h2>
+            <p className="text-sm sm:text-base text-muted-foreground">
+              5.0 ⭐ Aesthetic Physician
+            </p>
           </div>
         </div>
 
@@ -91,15 +97,15 @@ export function ServiceSelection({
       </Card>
 
       <div className="max-w-3xl mx-auto">
-        <h3 className="text-xl font-semibold mb-4">Services</h3>
-        <div className="space-y-4">
+        <h3 className="text-lg sm:text-xl font-semibold mb-4">Services</h3>
+        <div className="space-y-3 sm:space-y-4">
           {services.map(service => {
             const Icon = serviceIcons[service.name] || Phone;
 
             return (
               <Card
                 key={service.id}
-                className="p-6 glass-effect border-emerald-500/20 hover:border-emerald-500/40 transition-all cursor-pointer group"
+                className="p-4 sm:p-6 glass-effect border-emerald-500/20 hover:border-emerald-500/40 transition-all cursor-pointer group"
                 onClick={() => {
                   const whatsappLink = whatsappLinks[service.name];
                   if (whatsappLink) {
@@ -109,37 +115,39 @@ export function ServiceSelection({
                   }
                 }}
               >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 flex items-center justify-center">
-                      <Icon className="w-6 h-6 text-emerald-400" />
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div className="flex items-start gap-3 sm:gap-4 min-w-0 flex-1">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 flex items-center justify-center flex-shrink-0">
+                      <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-400" />
                     </div>
-                    <div>
-                      <h4 className="text-lg font-semibold mb-1 flex items-center gap-2">
-                        {service.name}
-                        <WhatsAppIcon className="w-5 h-5 text-[#25D366]" />
+                    <div className="min-w-0 flex-1">
+                      <h4 className="text-base sm:text-lg font-semibold mb-1 flex items-center gap-2 flex-wrap">
+                        <span className="break-words">{service.name}</span>
+                        <WhatsAppIcon className="w-4 h-4 sm:w-5 sm:h-5 text-[#25D366] flex-shrink-0" />
                       </h4>
-                      <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 text-xs sm:text-sm text-muted-foreground">
                         <span className="flex items-center gap-1">
-                          <Clock className="w-4 h-4" />
-                          {service.duration_minutes} mins
+                          <Clock className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                          <span className="whitespace-nowrap">
+                            {service.duration_minutes} mins
+                          </span>
                         </span>
                         <span className="flex items-center gap-1">
-                          <User className="w-4 h-4" />
-                          with {doctor.name}
+                          <User className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                          <span className="truncate">with {doctor.name}</span>
                         </span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-4">
-                    <div className="text-right">
-                      <div className="flex items-center gap-1 text-2xl font-bold text-emerald-400">
-                        <IndianRupee className="w-5 h-5" />
+                  <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-4">
+                    <div className="text-left sm:text-right">
+                      <div className="flex items-center gap-1 text-xl sm:text-2xl font-bold text-emerald-400">
+                        <IndianRupee className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
                         <span>{service.price}</span>
                       </div>
                     </div>
-                    <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" />
+                    <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-emerald-400 group-hover:translate-x-1 transition-all flex-shrink-0" />
                   </div>
                 </div>
               </Card>
