@@ -36,11 +36,11 @@ const serviceIcons: Record<string, any> = {
 
 const whatsappLinks: Record<string, string> = {
   'Chat Consultation':
-    'https://wa.me/918600198045?text=Hi%20Dr.%20Shubhangi,%20I%27d%20like%20a%20Chat%20Consultation',
+    'https://wa.me/918850454287?text=Hi%20Dr.%20Shubhangi,%20I%27d%20like%20a%20Chat%20Consultation',
   'Phone Call Consultation':
-    'https://wa.me/918600198045?text=Hi%20Dr.%20Shubhangi,%20I%27d%20like%20a%20Phone%20Call%20Consultation',
+    'https://wa.me/918850454287?text=Hi%20Dr.%20Shubhangi,%20I%27d%20like%20a%20Phone%20Call%20Consultation',
   'Video Call Consultation':
-    'https://wa.me/918600198045?text=Hi%20Dr.%20Shubhangi,%20I%27d%20like%20a%20Video%20Call%20Consultation',
+    'https://wa.me/918850454287?text=Hi%20Dr.%20Shubhangi,%20I%27d%20like%20a%20Video%20Call%20Consultation',
 };
 
 interface ServiceSelectionProps {
