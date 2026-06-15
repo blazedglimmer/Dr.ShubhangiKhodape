@@ -23,8 +23,6 @@ export default function BookingShell({
 }: BookingShellProps) {
   const [step, setStep] = useState(1);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
-  const [selectedDateTime, setSelectedDateTime] = useState<Date | null>(null);
-  const [timezone, setTimezone] = useState('Asia/Kolkata');
   const [bookingReference, setBookingReference] = useState('');
 
   useEffect(() => {
@@ -50,44 +48,28 @@ export default function BookingShell({
         />
 
         {step === 2 && selectedService && (
-          <DateTimeSelection
-            service={selectedService}
-            doctor={doctor}
-            selectedDateTime={selectedDateTime}
-            timezone={timezone}
-            onDateTimeSelect={setSelectedDateTime}
-            onTimezoneChange={setTimezone}
-            onBack={() => setStep(1)}
-            onNext={() => setStep(3)}
-          />
-        )}
-
-        {step === 3 && selectedService && selectedDateTime && (
           <BookingForm
             service={selectedService}
             doctor={doctor}
-            dateTime={selectedDateTime}
-            timezone={timezone}
-            onBack={() => setStep(2)}
-            onSuccess={reference => {
-              setBookingReference(reference);
-              setStep(4);
+            onBack={() => setStep(1)}
+            onSuccess={() => {
+              setStep(3);
             }}
           />
         )}
 
-        {step === 4 &&
-          bookingReference &&
-          selectedService &&
-          selectedDateTime && (
-            <BookingConfirmation
-              bookingReference={bookingReference}
-              service={selectedService}
-              doctor={doctor}
-              dateTime={selectedDateTime}
-              timezone={timezone}
-            />
-          )}
+        {step === 3 && (
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="p-8 glass-effect rounded-lg">
+              <h2 className="text-2xl font-semibold mb-4">
+                Redirecting to WhatsApp
+              </h2>
+              <p className="text-muted-foreground">
+                You will be redirected to WhatsApp to confirm your booking.
+              </p>
+            </div>
+          </div>
+        )}
       </div>
     </main>
   );
