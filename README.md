@@ -9,7 +9,7 @@ A modern, full-stack doctor's booking and portfolio website built with Next.js 1
 - **Real-time Availability**: Prevents double-booking by checking existing appointments
 - **Patient Management**: Comprehensive booking form with validation
 - **Email Notifications**: Automated confirmation emails for both doctor and patients
-- **Admin Dashboard**: Protected dashboard for managing appointments (password: `admin123`)
+- **Admin Dashboard**: Protected dashboard for managing appointments
 - **Responsive Design**: Works seamlessly on all devices
 
 ## Tech Stack
@@ -40,13 +40,14 @@ A modern, full-stack doctor's booking and portfolio website built with Next.js 1
 
 - `/` - Home page with doctor profile and services
 - `/booking` - Multi-step booking flow
-- `/dashboard` - Admin dashboard (password: `admin123`)
+- `/dashboard` - Admin dashboard
 
 ## Admin Dashboard
 
-Access the admin dashboard at `/dashboard` with password: `admin123`
+Access the admin dashboard at `/dashboard`
 
 Features:
+
 - View all bookings (upcoming and past)
 - Filter by status (pending, confirmed, completed, cancelled)
 - Update booking status
@@ -67,7 +68,3 @@ Features:
 - Form validation (client and server-side)
 - Admin dashboard password protection
 - Secure API routes
-
-## Contact
-
-For any queries, reach out to Dr. Shubhangi Khodape at: shubhangikhodape16@gmail.com
