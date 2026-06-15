@@ -6,7 +6,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { ChevronLeft, Loader2, IndianRupee } from 'lucide-react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { format } from 'date-fns';
@@ -119,7 +125,9 @@ export function BookingForm({
               <Input
                 id="name"
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={e =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
                 required
                 className="mt-1"
               />
@@ -132,7 +140,9 @@ export function BookingForm({
               <div className="flex gap-2 mt-1">
                 <Select
                   value={formData.countryCode}
-                  onValueChange={(value) => setFormData({ ...formData, countryCode: value })}
+                  onValueChange={value =>
+                    setFormData({ ...formData, countryCode: value })
+                  }
                 >
                   <SelectTrigger className="w-24">
                     <SelectValue />
@@ -148,7 +158,9 @@ export function BookingForm({
                   id="phone"
                   type="tel"
                   value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  onChange={e =>
+                    setFormData({ ...formData, phone: e.target.value })
+                  }
                   required
                   className="flex-1"
                 />
@@ -163,7 +175,9 @@ export function BookingForm({
                 id="email"
                 type="email"
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={e =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
                 required
                 className="mt-1"
               />
@@ -174,7 +188,9 @@ export function BookingForm({
               <Input
                 id="address"
                 value={formData.address}
-                onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                onChange={e =>
+                  setFormData({ ...formData, address: e.target.value })
+                }
                 className="mt-1"
               />
             </div>
@@ -185,7 +201,9 @@ export function BookingForm({
                 <Input
                   id="city"
                   value={formData.city}
-                  onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                  onChange={e =>
+                    setFormData({ ...formData, city: e.target.value })
+                  }
                   className="mt-1"
                 />
               </div>
@@ -195,7 +213,9 @@ export function BookingForm({
                 <Input
                   id="state"
                   value={formData.state}
-                  onChange={(e) => setFormData({ ...formData, state: e.target.value })}
+                  onChange={e =>
+                    setFormData({ ...formData, state: e.target.value })
+                  }
                   className="mt-1"
                 />
               </div>
@@ -206,7 +226,9 @@ export function BookingForm({
               <Input
                 id="pincode"
                 value={formData.pincode}
-                onChange={(e) => setFormData({ ...formData, pincode: e.target.value })}
+                onChange={e =>
+                  setFormData({ ...formData, pincode: e.target.value })
+                }
                 className="mt-1"
               />
             </div>
@@ -218,7 +240,9 @@ export function BookingForm({
               <Textarea
                 id="mainConcern"
                 value={formData.mainConcern}
-                onChange={(e) => setFormData({ ...formData, mainConcern: e.target.value })}
+                onChange={e =>
+                  setFormData({ ...formData, mainConcern: e.target.value })
+                }
                 required
                 className="mt-1 min-h-[80px]"
               />
@@ -229,12 +253,19 @@ export function BookingForm({
               <Textarea
                 id="comments"
                 value={formData.comments}
-                onChange={(e) => setFormData({ ...formData, comments: e.target.value })}
+                onChange={e =>
+                  setFormData({ ...formData, comments: e.target.value })
+                }
                 className="mt-1 min-h-[80px]"
               />
             </div>
 
-            <Button type="submit" size="lg" className="w-full" disabled={loading}>
+            <Button
+              type="submit"
+              size="lg"
+              className="w-full"
+              disabled={loading}
+            >
               {loading ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -249,24 +280,25 @@ export function BookingForm({
               <div>
                 <p className="font-semibold mb-1">Booking policy:</p>
                 <p className="text-muted-foreground text-xs">
-                  Welcome! Let's get your skin, hair & gut health in check. After you book a consultation,
+                  {`Welcome! Let's get your skin, hair & gut health in check. After you book a consultation,
                   you will receive a follow up message from our team for further process & payment on your
-                  mentioned contact info.
+                  mentioned contact info.`}
                 </p>
               </div>
 
               <div>
                 <p className="font-semibold mb-1">Cancellation policy:</p>
                 <p className="text-muted-foreground text-xs">
-                  Cancellation and rescheduling is not permitted once the appointment is booked.
+                  Cancellation and rescheduling is not permitted once the
+                  appointment is booked.
                 </p>
               </div>
 
               <div>
                 <p className="font-semibold mb-1">Additional information:</p>
                 <p className="text-muted-foreground text-xs">
-                  When booking with {doctor.name}, you may receive appointment-specific communication via
-                  email and SMS.
+                  When booking with {doctor.name}, you may receive
+                  appointment-specific communication via email and SMS.
                 </p>
               </div>
             </Card>
@@ -278,7 +310,10 @@ export function BookingForm({
             <div className="flex items-center gap-3 mb-6">
               <Avatar className="w-12 h-12">
                 <AvatarFallback className="bg-gradient-to-br from-emerald-500 to-teal-500 text-white">
-                  {doctor.name.split(' ').map(n => n[0]).join('')}
+                  {doctor.name
+                    .split(' ')
+                    .map(n => n[0])
+                    .join('')}
                 </AvatarFallback>
               </Avatar>
               <div>
@@ -292,9 +327,16 @@ export function BookingForm({
             <div className="mb-4 p-3 bg-secondary/50 rounded-lg">
               <p className="text-sm font-medium mb-1">
                 {format(dateTime, 'h:mm a')} -{' '}
-                {format(new Date(dateTime.getTime() + service.duration_minutes * 60000), 'h:mm a')}
+                {format(
+                  new Date(
+                    dateTime.getTime() + service.duration_minutes * 60000
+                  ),
+                  'h:mm a'
+                )}
               </p>
-              <p className="text-xs text-muted-foreground">{format(dateTime, 'EEEE, dd MMMM yyyy')}</p>
+              <p className="text-xs text-muted-foreground">
+                {format(dateTime, 'EEEE, dd MMMM yyyy')}
+              </p>
             </div>
 
             <div className="space-y-3 mb-6">
@@ -302,7 +344,8 @@ export function BookingForm({
                 <div>
                   <p className="font-medium">{service.name}</p>
                   <p className="text-sm text-muted-foreground">
-                    {service.duration_minutes} mins • with {doctor.name.split(' ')[0]}
+                    {service.duration_minutes} mins • with{' '}
+                    {doctor.name.split(' ')[0]}
                   </p>
                 </div>
                 <div className="flex items-center gap-1 font-bold text-emerald-400">

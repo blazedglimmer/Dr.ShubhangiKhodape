@@ -89,9 +89,9 @@ export function ServiceSelection({
         <Card className="p-4 bg-secondary/50 border-emerald-500/20 mb-6">
           <h3 className="font-semibold mb-2">Our Booking Policy</h3>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            Welcome! Let's get your skin, hair & gut health in check. After you
+            {`Welcome! Let's get your skin, hair & gut health in check. After you
             book a consultation, you will receive a follow up message from our
-            team for further process & payment on your mentioned contact info.
+            team for further process & payment on your mentioned contact info.`}
           </p>
         </Card>
       </Card>

@@ -23,7 +23,24 @@ async function getDoctorData() {
 }
 
 export default async function Home() {
-  const { doctor, services } = await getDoctorData();
+  const [doctor, services] = [
+    {
+      name: 'Shubhangi Khodape',
+      email: 'shubhangikhodape16@gmail.com',
+    },
+    [
+      {
+        id: '3930903',
+        doctor_id: '838383090930di3dj03',
+        name: 'Consulting',
+        description: 'Solving',
+        duration_minutes: 23,
+        price: 300,
+        is_active: 0,
+        created_at: '23:04:1998',
+      },
+    ],
+  ];
 
   if (!doctor) {
     return <div>Loading...</div>;
