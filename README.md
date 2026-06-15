@@ -1,6 +1,6 @@
 # Dr. Shubhangi Khodape - Booking Portfolio
 
-A modern, full-stack doctor's booking and portfolio website built with Next.js 15, TypeScript, and Supabase.
+A modern, full-stack doctor's booking and portfolio website built with Next.js (App Router), TypeScript, and Prisma/Postgres.
 
 ## Features
 
@@ -16,9 +16,9 @@ A modern, full-stack doctor's booking and portfolio website built with Next.js 1
 
 - **Framework**: Next.js 15 (App Router)
 - **Language**: TypeScript
-- **Database**: Supabase (PostgreSQL)
+- **Database**: PostgreSQL (via Prisma)
 - **Styling**: Tailwind CSS + shadcn/ui components
-- **Email**: Supabase Edge Functions
+- **Email**: configurable via SMTP or external provider
 
 ## Database Structure
 
@@ -29,7 +29,7 @@ A modern, full-stack doctor's booking and portfolio website built with Next.js 1
 
 ## Getting Started
 
-1. The application is already configured with Supabase
+1. Set `DATABASE_URL` in your environment to point to Postgres
 2. Run the development server:
    ```bash
    npm run dev

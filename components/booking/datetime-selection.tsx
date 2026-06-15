@@ -4,11 +4,16 @@ import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { ChevronLeft, Clock, IndianRupee, User } from 'lucide-react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { format, addDays, setHours, setMinutes } from 'date-fns';
-import { supabase } from '@/lib/supabase';
 import type { Database } from '@/types/database';
 
 type Service = Database['public']['Tables']['services']['Row'];
@@ -35,7 +40,9 @@ export function DateTimeSelection({
   onBack,
   onNext,
 }: DateTimeSelectionProps) {
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(selectedDateTime || undefined);
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(
+    selectedDateTime || undefined
+  );
   const [availableSlots, setAvailableSlots] = useState<Date[]>([]);
   const [bookedSlots, setBookedSlots] = useState<string[]>([]);
 
@@ -53,15 +60,13 @@ export function DateTimeSelection({
     const endOfDay = new Date(date);
     endOfDay.setHours(23, 59, 59, 999);
 
-    const { data } = await (supabase
-      .from('bookings') as any)
-      .select('appointment_datetime')
-      .eq('doctor_id', doctor.id)
-      .gte('appointment_datetime', startOfDay.toISOString())
-      .lte('appointment_datetime', endOfDay.toISOString())
-      .in('status', ['pending', 'confirmed']);
-
-    if (data && Array.isArray(data)) {
+    const dateStr = startOfDay.toISOString().slice(0, 10);
+    const res = await fetch(
+      `/api/bookings?date=${dateStr}&doctorId=${doctor.id}`
+    );
+    if (!res.ok) return;
+    const data = await res.json();
+    if (Array.isArray(data)) {
       setBookedSlots(data.map((b: any) => b.appointment_datetime));
     }
   }
@@ -86,7 +91,7 @@ export function DateTimeSelection({
   }
 
   function isSlotBooked(slot: Date): boolean {
-    return bookedSlots.some((booked) => {
+    return bookedSlots.some(booked => {
       const bookedDate = new Date(booked);
       return bookedDate.getTime() === slot.getTime();
     });
@@ -109,14 +114,18 @@ export function DateTimeSelection({
             <h2 className="text-2xl font-semibold mb-4">{service.name}</h2>
 
             <div className="mb-6">
-              <label className="text-sm font-medium mb-2 block">Time zone</label>
+              <label className="text-sm font-medium mb-2 block">
+                Time zone
+              </label>
               <Select value={timezone} onValueChange={onTimezoneChange}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="Asia/Kolkata">India - Kolkata</SelectItem>
-                  <SelectItem value="America/New_York">America - New York</SelectItem>
+                  <SelectItem value="America/New_York">
+                    America - New York
+                  </SelectItem>
                   <SelectItem value="Europe/London">Europe - London</SelectItem>
                   <SelectItem value="Asia/Dubai">Asia - Dubai</SelectItem>
                 </SelectContent>
@@ -129,7 +138,7 @@ export function DateTimeSelection({
                 mode="single"
                 selected={selectedDate}
                 onSelect={setSelectedDate}
-                disabled={(date) => date < new Date() || date.getDay() === 0}
+                disabled={date => date < new Date() || date.getDay() === 0}
                 className="rounded-md border"
               />
             </div>
@@ -140,10 +149,11 @@ export function DateTimeSelection({
                   {format(selectedDate, 'EEEE, dd MMMM yyyy')}
                 </h3>
                 <div className="grid grid-cols-3 gap-3">
-                  {availableSlots.map((slot) => {
+                  {availableSlots.map(slot => {
                     const isBooked = isSlotBooked(slot);
                     const isSelected =
-                      selectedDateTime && slot.getTime() === selectedDateTime.getTime();
+                      selectedDateTime &&
+                      slot.getTime() === selectedDateTime.getTime();
 
                     return (
                       <Button
@@ -168,7 +178,10 @@ export function DateTimeSelection({
             <div className="flex items-center gap-3 mb-6">
               <Avatar className="w-12 h-12">
                 <AvatarFallback className="bg-gradient-to-br from-emerald-500 to-teal-500 text-white">
-                  {doctor.name.split(' ').map(n => n[0]).join('')}
+                  {doctor.name
+                    .split(' ')
+                    .map(n => n[0])
+                    .join('')}
                 </AvatarFallback>
               </Avatar>
               <div>
@@ -184,7 +197,10 @@ export function DateTimeSelection({
                 <p className="text-sm font-medium mb-1">
                   {format(selectedDateTime, 'h:mm a')} -{' '}
                   {format(
-                    new Date(selectedDateTime.getTime() + service.duration_minutes * 60000),
+                    new Date(
+                      selectedDateTime.getTime() +
+                        service.duration_minutes * 60000
+                    ),
                     'h:mm a'
                   )}
                 </p>
@@ -199,7 +215,8 @@ export function DateTimeSelection({
                 <div>
                   <p className="font-medium">{service.name}</p>
                   <p className="text-sm text-muted-foreground">
-                    {service.duration_minutes} mins • with {doctor.name.split(' ')[0]}
+                    {service.duration_minutes} mins • with{' '}
+                    {doctor.name.split(' ')[0]}
                   </p>
                 </div>
                 <div className="flex items-center gap-1 font-bold text-emerald-400">

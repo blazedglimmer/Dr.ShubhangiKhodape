@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { supabase } from '@/lib/supabase';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -38,9 +37,9 @@ export default function DashboardPage() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [bookings, setBookings] = useState<Booking[]>([]);
-  const [filter, setFilter] = useState<'all' | 'pending' | 'confirmed' | 'completed' | 'cancelled'>(
-    'all'
-  );
+  const [filter, setFilter] = useState<
+    'all' | 'pending' | 'confirmed' | 'completed' | 'cancelled'
+  >('all');
 
   useEffect(() => {
     const auth = sessionStorage.getItem('dashboard_auth');
@@ -53,18 +52,11 @@ export default function DashboardPage() {
   async function fetchBookings() {
     setLoading(true);
     try {
-      let query = supabase
-        .from('bookings')
-        .select('*, services(*)')
-        .order('appointment_datetime', { ascending: true });
-
-      if (filter !== 'all') {
-        query = query.eq('status', filter);
-      }
-
-      const { data, error } = await query;
-
-      if (error) throw error;
+      const params = new URLSearchParams();
+      if (filter && filter !== 'all') params.set('status', filter);
+      const res = await fetch(`/api/bookings?${params.toString()}`);
+      if (!res.ok) throw new Error('Failed to fetch bookings');
+      const data = await res.json();
       setBookings(data || []);
     } catch (error) {
       console.error('Error fetching bookings:', error);
@@ -102,13 +94,12 @@ export default function DashboardPage() {
 
   async function updateBookingStatus(bookingId: string, newStatus: string) {
     try {
-      const { error } = await (supabase
-        .from('bookings') as any)
-        .update({ status: newStatus, updated_at: new Date().toISOString() })
-        .eq('id', bookingId);
-
-      if (error) throw error;
-
+      const res = await fetch('/api/bookings', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ bookingId, newStatus }),
+      });
+      if (!res.ok) throw new Error('Failed to update booking');
       toast.success('Booking status updated');
       fetchBookings();
     } catch (error) {
@@ -121,7 +112,9 @@ export default function DashboardPage() {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
         <Card className="p-8 w-full max-w-md glass-effect">
-          <h1 className="text-3xl font-bold mb-6 text-center gradient-text">Admin Dashboard</h1>
+          <h1 className="text-3xl font-bold mb-6 text-center gradient-text">
+            Admin Dashboard
+          </h1>
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <Label htmlFor="password">Password</Label>
@@ -129,7 +122,7 @@ export default function DashboardPage() {
                 id="password"
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={e => setPassword(e.target.value)}
                 required
                 className="mt-1"
                 placeholder="Enter admin password"
@@ -160,10 +153,12 @@ export default function DashboardPage() {
   };
 
   const upcomingBookings = bookings.filter(
-    (b) => new Date(b.appointment_datetime) >= new Date() && b.status !== 'cancelled'
+    b =>
+      new Date(b.appointment_datetime) >= new Date() && b.status !== 'cancelled'
   );
   const pastBookings = bookings.filter(
-    (b) => new Date(b.appointment_datetime) < new Date() || b.status === 'cancelled'
+    b =>
+      new Date(b.appointment_datetime) < new Date() || b.status === 'cancelled'
   );
 
   return (
@@ -174,7 +169,9 @@ export default function DashboardPage() {
             <h1 className="text-4xl font-bold mb-2">
               Admin <span className="gradient-text">Dashboard</span>
             </h1>
-            <p className="text-muted-foreground">Manage your bookings and appointments</p>
+            <p className="text-muted-foreground">
+              Manage your bookings and appointments
+            </p>
           </div>
           <Button variant="outline" onClick={handleLogout}>
             <LogOut className="w-4 h-4 mr-2" />
@@ -190,19 +187,19 @@ export default function DashboardPage() {
           <Card className="p-6 glass-effect">
             <p className="text-sm text-muted-foreground mb-1">Pending</p>
             <p className="text-3xl font-bold text-yellow-500">
-              {bookings.filter((b) => b.status === 'pending').length}
+              {bookings.filter(b => b.status === 'pending').length}
             </p>
           </Card>
           <Card className="p-6 glass-effect">
             <p className="text-sm text-muted-foreground mb-1">Confirmed</p>
             <p className="text-3xl font-bold text-emerald-500">
-              {bookings.filter((b) => b.status === 'confirmed').length}
+              {bookings.filter(b => b.status === 'confirmed').length}
             </p>
           </Card>
           <Card className="p-6 glass-effect">
             <p className="text-sm text-muted-foreground mb-1">Completed</p>
             <p className="text-3xl font-bold text-blue-500">
-              {bookings.filter((b) => b.status === 'completed').length}
+              {bookings.filter(b => b.status === 'completed').length}
             </p>
           </Card>
         </div>
@@ -235,7 +232,9 @@ export default function DashboardPage() {
             <>
               {upcomingBookings.length > 0 && (
                 <div className="mb-8">
-                  <h3 className="text-lg font-semibold mb-4">Upcoming Appointments</h3>
+                  <h3 className="text-lg font-semibold mb-4">
+                    Upcoming Appointments
+                  </h3>
                   <div className="border rounded-lg overflow-hidden">
                     <Table>
                       <TableHeader>
@@ -250,14 +249,16 @@ export default function DashboardPage() {
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        {upcomingBookings.map((booking) => (
+                        {upcomingBookings.map(booking => (
                           <TableRow key={booking.id}>
                             <TableCell className="font-mono text-sm">
                               {booking.booking_reference}
                             </TableCell>
                             <TableCell>
                               <div>
-                                <p className="font-medium">{booking.patient_name}</p>
+                                <p className="font-medium">
+                                  {booking.patient_name}
+                                </p>
                                 <p className="text-xs text-muted-foreground">
                                   {booking.main_concern.substring(0, 40)}...
                                 </p>
@@ -268,11 +269,17 @@ export default function DashboardPage() {
                               <div className="space-y-1">
                                 <div className="flex items-center gap-2 text-sm">
                                   <Calendar className="w-4 h-4" />
-                                  {format(new Date(booking.appointment_datetime), 'MMM dd, yyyy')}
+                                  {format(
+                                    new Date(booking.appointment_datetime),
+                                    'MMM dd, yyyy'
+                                  )}
                                 </div>
                                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                                   <Clock className="w-4 h-4" />
-                                  {format(new Date(booking.appointment_datetime), 'h:mm a')}
+                                  {format(
+                                    new Date(booking.appointment_datetime),
+                                    'h:mm a'
+                                  )}
                                 </div>
                               </div>
                             </TableCell>
@@ -298,20 +305,32 @@ export default function DashboardPage() {
                                 </div>
                               </div>
                             </TableCell>
-                            <TableCell>{getStatusBadge(booking.status)}</TableCell>
+                            <TableCell>
+                              {getStatusBadge(booking.status)}
+                            </TableCell>
                             <TableCell>
                               <Select
                                 value={booking.status}
-                                onValueChange={(value) => updateBookingStatus(booking.id, value)}
+                                onValueChange={value =>
+                                  updateBookingStatus(booking.id, value)
+                                }
                               >
                                 <SelectTrigger className="w-32">
                                   <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent>
-                                  <SelectItem value="pending">Pending</SelectItem>
-                                  <SelectItem value="confirmed">Confirmed</SelectItem>
-                                  <SelectItem value="completed">Completed</SelectItem>
-                                  <SelectItem value="cancelled">Cancelled</SelectItem>
+                                  <SelectItem value="pending">
+                                    Pending
+                                  </SelectItem>
+                                  <SelectItem value="confirmed">
+                                    Confirmed
+                                  </SelectItem>
+                                  <SelectItem value="completed">
+                                    Completed
+                                  </SelectItem>
+                                  <SelectItem value="cancelled">
+                                    Cancelled
+                                  </SelectItem>
                                 </SelectContent>
                               </Select>
                             </TableCell>
@@ -325,7 +344,9 @@ export default function DashboardPage() {
 
               {pastBookings.length > 0 && (
                 <div>
-                  <h3 className="text-lg font-semibold mb-4">Past Appointments</h3>
+                  <h3 className="text-lg font-semibold mb-4">
+                    Past Appointments
+                  </h3>
                   <div className="border rounded-lg overflow-hidden">
                     <Table>
                       <TableHeader>
@@ -338,7 +359,7 @@ export default function DashboardPage() {
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        {pastBookings.map((booking) => (
+                        {pastBookings.map(booking => (
                           <TableRow key={booking.id} className="opacity-60">
                             <TableCell className="font-mono text-sm">
                               {booking.booking_reference}
@@ -346,9 +367,14 @@ export default function DashboardPage() {
                             <TableCell>{booking.patient_name}</TableCell>
                             <TableCell>{booking.services.name}</TableCell>
                             <TableCell>
-                              {format(new Date(booking.appointment_datetime), 'MMM dd, yyyy h:mm a')}
+                              {format(
+                                new Date(booking.appointment_datetime),
+                                'MMM dd, yyyy h:mm a'
+                              )}
                             </TableCell>
-                            <TableCell>{getStatusBadge(booking.status)}</TableCell>
+                            <TableCell>
+                              {getStatusBadge(booking.status)}
+                            </TableCell>
                           </TableRow>
                         ))}
                       </TableBody>

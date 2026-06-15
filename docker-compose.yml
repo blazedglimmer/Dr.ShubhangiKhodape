@@ -1,0 +1,12 @@
+# docker-compose.yml
+services:
+  db:
+    image: postgres
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: dbname
+    ports:
+      - "5432:5432"
